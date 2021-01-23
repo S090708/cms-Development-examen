@@ -8,7 +8,7 @@ import {
   BottomEdgeDown,
   BottomEdgeUp, 
   Movie} 
-  from "./pageStyles/pageStyles"
+  from "../pageStyles/pageStyles"
 import {COLORS} from '../constants'
 
 const IndexPage = () => {
@@ -34,7 +34,7 @@ const IndexPage = () => {
             sourceUrl
             imageFile {
               childImageSharp {
-                fluid(quality: 100) {
+                fluid(quality: 80) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
@@ -53,7 +53,7 @@ const IndexPage = () => {
                   sourceUrl
                     imageFile {
                       childImageSharp {
-                        fluid(quality: 100) {
+                        fluid(quality: 50) {
                           ...GatsbyImageSharpFluid_withWebp
                 }
               }

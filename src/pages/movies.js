@@ -8,7 +8,7 @@ import {
   BottomEdgeDown,
   BottomEdgeUp,
   Movie} 
-  from "./pageStyles/pageStyles"
+  from "../pageStyles/pageStyles"
 import {COLORS} from '../constants'
 
 const MoviesPage = () => {
@@ -35,7 +35,7 @@ const MoviesPage = () => {
               sourceUrl
                 imageFile {
                     childImageSharp {
-                        fluid(quality: 100) {
+                        fluid(quality: 80) {
                         ...GatsbyImageSharpFluid_withWebp
                     }
                 }
@@ -43,7 +43,7 @@ const MoviesPage = () => {
             }
           }
         }
-        movies {
+        movies (first: 50){
             edges {
               node {
                 movie {
@@ -52,7 +52,7 @@ const MoviesPage = () => {
                         sourceUrl
                           imageFile {
                             childImageSharp {
-                              fluid(quality: 100) {
+                              fluid(quality: 50) {
                                 ...GatsbyImageSharpFluid_withWebp
                             }
                         }
@@ -94,7 +94,7 @@ const MoviesPage = () => {
                 <h2>Classics</h2>
                 <div className="movie-items">
                     {movies.map(({node: {movie, slug} }) => (
-                        <Movie to={`${slug}`} key={slug}>
+                        <Movie to={`/${slug}`} key={slug}>
                             <Image fluid={movie.movieImage.imageFile.childImageSharp.fluid}
                             alt={movie.movieImage.altText}
                             />

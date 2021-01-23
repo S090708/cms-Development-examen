@@ -66,7 +66,7 @@ query ($id: ID!) {
             sourceUrl
                 imageFile {
                     childImageSharp {
-                        fluid(quality: 100) {
+                        fluid(quality: 75) {
                         ...GatsbyImageSharpFluid_withWebp
                     }
                 }
