@@ -41,6 +41,7 @@ export const Wrapper = styled.div`
         text-transform: uppercase;
         background-color: ${COLORS.GREY};
         border-right: solid 15px ${COLORS.SECONDARY};
+        opacity: 0.8;
 
         @media (max-width: ${MEDIA_QUERIES.MEDIUM}) {
           color: ${COLORS.PRIMARY};
