@@ -134,7 +134,7 @@ export const Wrapper = styled.div`
     align-items: center;
     width: 100%;
     padding: 2rem 5%;
-    background-color: ${({ moviesColor = COLORS.PRIMARY }) =>
+    background-color: ${({ moviesColor = COLORS.SECONDARY }) =>
       `${moviesColor}`};
 
     h2 {
