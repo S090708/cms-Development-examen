@@ -1,22 +1,111 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
+import Layout from "../components/Layout"
+import SEO from "../components/Seo"
+import {Wrapper, Image,BottomEdgeDown,BottomEdgeUp, Movie} from "./pageStyles/pageStyles"
+import {COLORS} from '../constants'
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+const IndexPage = () => {
+  const {
+    wpcontent: {
+      page: {
+        homeMeta: {
+          homePageDescription,
+          homePageFeaturedMovies,
+          homePageHeaderDescription,
+          homePageHeaderImage,
+          homePageHeaderTitle
+        }
+      }
+    }
+  } = useStaticQuery(graphql `
+  query {
+    wpcontent {
+      page(id: "home", idType: URI) {
+        homeMeta {
+          homePageHeaderImage {
+            altText
+            sourceUrl
+            imageFile {
+              childImageSharp {
+                fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
+          homePageHeaderTitle
+          homePageHeaderDescription
+          homePageDescription
+          homePageFeaturedMovies {
+            ... on WPGraphql_Movie {
+              id
+              slug
+              movie {
+                movieImage {
+                  altText
+                  sourceUrl
+                    imageFile {
+                      childImageSharp {
+                        fluid(quality: 100) {
+                          ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+                }
+                title
+                releaseYear
+                genre {
+                  name
+                }
+                director
+                stars
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  `)
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>CMS Examen Favourite Movies</h1>
-    <p>Welcome to my favourite movie page.</p>
-    <p>Check out my selection of Classics, modern and old.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <Wrapper>
+        <div className="banner">
+          <Image fluid={homePageHeaderImage.imageFile.childImageSharp.fluid} 
+          alt={homePageHeaderImage.altText}
+          />
+          <div className="inner-div">
+            <p className="header-title">{homePageHeaderTitle}</p>
+            <p className="header-description">{homePageHeaderDescription}</p>
+          </div>
+          <BottomEdgeDown color={COLORS.BLACK}/>
+        </div>
+        <div className="description">
+          <p>{homePageDescription}</p>
+          <BottomEdgeUp color={COLORS.SECONDARY} />
+        </div>
+        <div className="movies">
+          <h2>Featured Movies</h2>
+          <div className="movie-items">
+            {homePageFeaturedMovies.map(({movie, slug}) => (
+              <Movie to={`/${slug}`}>
+              <Image fluid={movie.movieImage.imageFile.childImageSharp.fluid} 
+              altText={movie.altText}
+              />
+              <div className="movie-info">
+                <p>{movie.title} {movie.releaseYear}</p>
+              </div>
+              </Movie>
+              
+            ))}
+          </div>
+        </div>
+      </Wrapper>
+    </Layout>
+  )
+}
 
 export default IndexPage
