@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import Layout from "../components/Layout"
 import SEO from "../components/Seo"
 import {
@@ -43,6 +43,7 @@ const AboutPage = () => {
     `)
     return(
         <Layout>
+            <SEO title="About"/>
             <Wrapper descriptionColor={COLORS.GREY}>
             <div className="banner">
                 <Image fluid={aboutHeaderPicture.imageFile.childImageSharp.fluid} 
@@ -52,7 +53,7 @@ const AboutPage = () => {
             <div className="description">
                 <h2>About</h2>
                 <p>{aboutDescription}</p>
-                <BottomEdgeUp color={COLORS.BLACK}/>
+                <BottomEdgeUp color={COLORS.SECONDARY}/>
             </div>
             </Wrapper>
         </Layout>
